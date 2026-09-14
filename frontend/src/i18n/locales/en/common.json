@@ -1,0 +1,512 @@
+{
+  "app": {
+    "brandName": "Winitex Textiles & Garments",
+    "welcomeUser": "Welcome, {{name}}",
+    "logout": "Log out",
+    "refreshData": "Refresh data",
+    "comingSoonTitle": "Coming soon",
+    "comingSoonDescription": "This module is under construction and will be enabled in an upcoming release."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "hr": "HR Management",
+    "weighing": "Weighing & Dyeing",
+    "accounting": "Accounting & Invoices",
+    "shipments": "Shipments",
+    "inventory": "Inventory",
+    "admin": "User Management"
+  },
+  "roles": {
+    "admin": "Administrator",
+    "hr": "HR"
+  },
+  "auth": {
+    "eyebrow": "Winitex Textiles & Garments",
+    "title": "Sign in to the factory system",
+    "subtitle": "Sign in with your employee account and you'll be redirected to the dashboard matching your role.",
+    "featureAdminTitle": "Management",
+    "featureAdminDescription": "Track consignments, weighing, dyeing, and invoices.",
+    "featureHrTitle": "Human Resources",
+    "featureHrDescription": "Employee records, attendance, leave, and payroll.",
+    "loginKicker": "Sign in",
+    "loginTitle": "Enter your account details",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "name@winitex-eg.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot your password?",
+    "submitIdle": "Sign in",
+    "submitLoading": "Signing in...",
+    "genericError": "Sign in failed.",
+    "redirectingSuffix": "Redirecting you now..."
+  },
+  "common": {
+    "retry": "Retry",
+    "currency": "EGP"
+  },
+  "errors": {
+    "notFoundTitle": "Page not found",
+    "notFoundDescription": "The link you tried to open doesn't exist.",
+    "backToDashboard": "Back to dashboard",
+    "forbiddenTitle": "Access denied",
+    "forbiddenDescription": "Your account doesn't have permission to access this section."
+  },
+  "dashboard": {
+    "title": "Operations dashboard",
+    "roleLabel": {
+      "admin": "Admin dashboard",
+      "hr": "HR dashboard"
+    },
+    "stat": {
+      "received": "Received",
+      "inProduction": "In production",
+      "readyForDelivery": "Ready for delivery",
+      "openHint": "Open consignments",
+      "loading": "Loading consignments...",
+      "error": "Couldn't load consignments ({{title}})."
+    },
+    "custody": {
+      "title": "Current custody stock — raw materials",
+      "subtitle": "Quantity only, no monetary value",
+      "loading": "Loading stock...",
+      "error": "Couldn't load stock.",
+      "totalKg": "Total weight (kg)",
+      "totalMetres": "Total length (m)",
+      "empty": "No stock available"
+    },
+    "overdueConsignments": {
+      "title": "Overdue consignments",
+      "subtitle": "Over {{threshold}} days",
+      "loading": "Loading overdue consignments...",
+      "error": "Couldn't load overdue consignments.",
+      "daysOverdue": "{{count}} days",
+      "unknownCustomer": "Unspecified customer",
+      "empty": "No overdue consignments"
+    },
+    "receivedRange": {
+      "title": "Consignments received today / this week",
+      "subtitle": "Switch range",
+      "today": "Today",
+      "week": "This week",
+      "todayLabel": "Consignments received today",
+      "weekLabel": "Consignments received this week"
+    },
+    "topCustomers": {
+      "title": "Top customers by open fabric quantity",
+      "subtitle": "Top {{count}} customers",
+      "loading": "Loading top customers...",
+      "error": "Couldn't load the customer list.",
+      "openFabrics": "Open fabrics",
+      "unknownCustomer": "Unspecified customer",
+      "empty": "No customer data"
+    },
+    "customerBalance": {
+      "title": "Customer balance (customer card)",
+      "subtitle": "Search by name or code, then select the customer",
+      "searchPlaceholder": "Search for a customer",
+      "loading": "Loading customer balance...",
+      "error": "Couldn't load customer balance.",
+      "currentBalance": "Current balance",
+      "updated": "Data updated for this customer",
+      "empty": "No balance available for this customer"
+    },
+    "draftInvoices": {
+      "title": "Invoices in preparation (unissued)",
+      "subtitle": "Status: draft",
+      "loading": "Loading invoices...",
+      "error": "Couldn't load invoices.",
+      "count": "Unissued invoices",
+      "empty": "No invoices in preparation"
+    },
+    "overdueInvoices": {
+      "title": "Overdue invoices",
+      "subtitle": "Past-due invoices needing follow-up",
+      "loading": "Loading overdue invoices...",
+      "error": "Couldn't load overdue invoices.",
+      "empty": "No overdue invoices"
+    },
+    "monthlyRevenue": {
+      "title": "Total dyeing invoices this month",
+      "subtitle": "Approved invoices this month",
+      "loading": "Loading monthly revenue...",
+      "error": "Couldn't load monthly revenue.",
+      "total": "Monthly total",
+      "empty": "No revenue for this month"
+    },
+    "alerts": {
+      "title": "Alerts",
+      "subtitle": "Key items that need follow-up",
+      "loading": "Loading alerts...",
+      "error": "Couldn't load alerts.",
+      "overdueTitle": "Open consignments past the threshold",
+      "overdueDescription": "Need a quick review",
+      "viewDetails": "View details",
+      "consignmentAlertBody": "Consignment details",
+      "loadingUnpriced": "Loading unpriced items...",
+      "errorUnpriced": "Couldn't load unpriced items.",
+      "unpricedTitle": "Items without an approved price",
+      "unpricedDescription": "{{count}} item(s) need a price correction",
+      "unpricedAlertBody": "Item details",
+      "emptyUnpriced": "No items without an approved price",
+      "loadingLowStock": "Loading stock status...",
+      "errorLowStock": "Couldn't load stock status.",
+      "lowStockTitle": "Low-stock items",
+      "lowStockDescription": "{{count}} item(s) need reordering",
+      "lowStockAlertBody": "Check the Inventory page for details",
+      "emptyLowStock": "No low-stock items",
+      "empty": "No alerts right now"
+    },
+    "quickActions": {
+      "title": "Quick actions",
+      "subtitle": "Quick navigation between core operations",
+      "newConsignment": "New consignment",
+      "newConsignmentAlert": "Navigate to /consignments/new",
+      "newInvoice": "New dyeing invoice",
+      "newInvoiceAlert": "Navigate to /invoices/new",
+      "searchPlaceholder": "Search by consignment number / customer name",
+      "searchButton": "Search"
+    },
+    "upcomingCardPlaceholder": "Additional card for upcoming operations"
+  },
+  "weighing": {
+    "subtitle": "Weighing & dyeing tickets — pre-dye weight, dye chemicals, then post-dye weight",
+    "newButton": "New consignment",
+    "filters": {
+      "all": "All"
+    },
+    "table": {
+      "columns": {
+        "consignmentNo": "Ticket #",
+        "customer": "Customer",
+        "fabric": "Fabric",
+        "status": "Status",
+        "preDyeWeight": "Pre-dye weight",
+        "receivedAt": "Received on"
+      },
+      "loading": "Loading consignments...",
+      "error": "Couldn't load consignments.",
+      "empty": "No consignments yet"
+    },
+    "form": {
+      "title": "New consignment",
+      "customerName": "Customer name",
+      "customerNamePlaceholder": "Customer or factory name",
+      "fabricName": "Fabric name/type",
+      "fabricNamePlaceholder": "e.g. cotton, polyester, silk",
+      "preDyeWeight": "Pre-dye weight (kg)",
+      "preDyeLength": "Pre-dye length (m)",
+      "submit": "Create consignment",
+      "submitting": "Creating...",
+      "cancel": "Cancel"
+    },
+    "detail": {
+      "title": "Consignment details",
+      "consignmentNo": "Ticket #",
+      "customer": "Customer",
+      "fabric": "Fabric",
+      "receivedAt": "Received on",
+      "preDyeSection": "Pre-dye details",
+      "postDyeSection": "Post-dye details",
+      "chemicalsSection": "Dye chemicals",
+      "chemicalsEmpty": "No chemicals added yet",
+      "addChemical": "Add chemical",
+      "chemicalName": "Chemical name",
+      "chemicalQuantity": "Quantity",
+      "chemicalUnit": "Unit",
+      "remove": "Remove",
+      "startProduction": "Start production",
+      "startProductionHint": "Add dye chemicals first before starting production",
+      "postDyeWeight": "Post-dye weight (kg)",
+      "postDyeLength": "Post-dye length (m)",
+      "complete": "Mark ready for delivery",
+      "notCompletedYet": "Post-dye weight not recorded yet",
+      "readyBanner": "This consignment is ready for delivery — it can no longer be edited",
+      "close": "Close"
+    }
+  },
+  "admin": {
+    "newButton": "New user",
+    "table": {
+      "columns": {
+        "fullName": "Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "createdAt": "Created",
+        "actions": "Actions"
+      },
+      "loading": "Loading users...",
+      "error": "Couldn't load users.",
+      "empty": "No users yet",
+      "active": "Active",
+      "inactive": "Inactive",
+      "edit": "Edit",
+      "resetPassword": "Reset password",
+      "deactivate": "Deactivate",
+      "activate": "Activate",
+      "youBadge": "You"
+    },
+    "form": {
+      "createTitle": "New user",
+      "editTitle": "Edit user",
+      "fullName": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "passwordHint": "At least 8 characters",
+      "role": "Role",
+      "submitCreate": "Create user",
+      "submitEdit": "Save changes",
+      "submitting": "Saving...",
+      "cancel": "Cancel",
+      "roleLockedSelf": "You can't change your own account's role"
+    },
+    "resetPasswordModal": {
+      "title": "Reset password",
+      "newPassword": "New password",
+      "submit": "Change password",
+      "submitting": "Changing...",
+      "success": "Password changed successfully."
+    },
+    "confirmDeactivateSelf": "You can't deactivate your own account"
+  },
+  "accounting": {
+    "newButton": "New invoice",
+    "filters": {
+      "all": "All",
+      "draft": "Draft",
+      "issued": "Issued",
+      "paid": "Paid",
+      "overdue": "Overdue"
+    },
+    "status": {
+      "draft": "Draft",
+      "issued": "Issued",
+      "paid": "Paid"
+    },
+    "table": {
+      "columns": {
+        "invoiceNo": "Invoice #",
+        "customer": "Customer",
+        "status": "Status",
+        "total": "Total",
+        "dueDate": "Due date"
+      },
+      "loading": "Loading invoices...",
+      "error": "Couldn't load invoices.",
+      "empty": "No invoices yet"
+    },
+    "newInvoiceModal": {
+      "title": "New invoice",
+      "customerLabel": "Customer",
+      "customerPlaceholder": "Search for a customer name",
+      "consignmentsLabel": "Select consignments to invoice",
+      "consignmentsEmpty": "No invoiceable consignments for this customer",
+      "submit": "Create invoice",
+      "submitting": "Creating...",
+      "cancel": "Cancel"
+    },
+    "detail": {
+      "title": "Invoice details",
+      "invoiceNo": "Invoice #",
+      "customer": "Customer",
+      "linesSection": "Invoice lines",
+      "lineTypeChemical": "Dye chemical",
+      "lineTypeFabric": "Dyeing service",
+      "priceLabel": "Price",
+      "unitPriceUnset": "Not priced",
+      "total": "Total",
+      "dueDateLabel": "Due date",
+      "issueButton": "Issue invoice",
+      "issueBlockedHint": "Price every line before issuing",
+      "markPaidButton": "Mark as paid",
+      "paidBanner": "This invoice has been paid",
+      "issuedBanner": "This invoice has been issued — prices can no longer be edited",
+      "close": "Close"
+    }
+  },
+  "hr": {
+    "tabs": {
+      "employees": "Employees",
+      "attendance": "Attendance",
+      "leave": "Leave",
+      "payroll": "Payroll"
+    },
+    "employees": {
+      "newButton": "New employee",
+      "table": {
+        "columns": {
+          "fullName": "Name",
+          "position": "Position",
+          "department": "Department",
+          "phone": "Phone",
+          "hireDate": "Hire date",
+          "salary": "Monthly salary",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "loading": "Loading employees...",
+        "error": "Couldn't load employees.",
+        "empty": "No employees yet",
+        "active": "Active",
+        "inactive": "Inactive",
+        "edit": "Edit",
+        "deactivate": "Deactivate",
+        "activate": "Activate"
+      },
+      "form": {
+        "createTitle": "New employee",
+        "editTitle": "Edit employee",
+        "fullName": "Full name",
+        "position": "Position",
+        "department": "Department",
+        "phone": "Phone",
+        "hireDate": "Hire date",
+        "monthlySalary": "Monthly salary",
+        "submitCreate": "Add employee",
+        "submitEdit": "Save changes",
+        "submitting": "Saving...",
+        "cancel": "Cancel"
+      }
+    },
+    "attendance": {
+      "dateLabel": "Date",
+      "loading": "Loading attendance...",
+      "error": "Couldn't load attendance.",
+      "empty": "No active employees",
+      "status": {
+        "present": "Present",
+        "absent": "Absent",
+        "late": "Late"
+      }
+    },
+    "leave": {
+      "newButton": "New request",
+      "filters": {
+        "all": "All",
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      },
+      "type": {
+        "vacation": "Vacation",
+        "sick": "Sick leave",
+        "other": "Other"
+      },
+      "table": {
+        "columns": {
+          "employee": "Employee",
+          "type": "Leave type",
+          "startDate": "From",
+          "endDate": "To",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "loading": "Loading leave requests...",
+        "error": "Couldn't load leave requests.",
+        "empty": "No leave requests yet",
+        "approve": "Approve",
+        "reject": "Reject"
+      },
+      "form": {
+        "title": "New leave request",
+        "employeeLabel": "Employee",
+        "typeLabel": "Leave type",
+        "startDate": "From date",
+        "endDate": "To date",
+        "reason": "Reason",
+        "submit": "Submit request",
+        "submitting": "Submitting...",
+        "cancel": "Cancel"
+      }
+    },
+    "payroll": {
+      "employeeLabel": "Employee",
+      "monthLabel": "Month",
+      "generateButton": "Generate payslip",
+      "generating": "Generating...",
+      "resultTitle": "Result",
+      "baseSalary": "Base salary",
+      "absentDays": "Unapproved absent days",
+      "deduction": "Deduction",
+      "netPay": "Net pay",
+      "table": {
+        "columns": {
+          "employee": "Employee",
+          "month": "Month",
+          "baseSalary": "Base salary",
+          "absentDays": "Absent days",
+          "deduction": "Deduction",
+          "netPay": "Net pay"
+        },
+        "loading": "Loading past payslips...",
+        "error": "Couldn't load past payslips.",
+        "empty": "No payslips generated yet"
+      }
+    }
+  },
+  "inventory": {
+    "newButton": "New item",
+    "type": {
+      "fabric": "Fabric",
+      "chemical": "Chemical"
+    },
+    "table": {
+      "columns": {
+        "type": "Type",
+        "name": "Name",
+        "quantity": "Quantity on hand",
+        "reorderThreshold": "Reorder threshold",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "loading": "Loading inventory...",
+      "error": "Couldn't load inventory.",
+      "empty": "No inventory items yet",
+      "ok": "In stock",
+      "low": "Low",
+      "restock": "Restock",
+      "edit": "Edit",
+      "history": "History"
+    },
+    "form": {
+      "createTitle": "New item",
+      "editTitle": "Edit item",
+      "itemType": "Item type",
+      "name": "Name",
+      "unit": "Unit",
+      "quantityOnHand": "Current quantity",
+      "reorderThreshold": "Reorder threshold",
+      "submitCreate": "Add item",
+      "submitEdit": "Save changes",
+      "submitting": "Saving...",
+      "cancel": "Cancel"
+    },
+    "restockModal": {
+      "title": "Restock item",
+      "quantity": "Quantity added",
+      "note": "Note (optional)",
+      "submit": "Record restock",
+      "submitting": "Recording...",
+      "cancel": "Cancel"
+    },
+    "transactionsModal": {
+      "title": "Stock movement history",
+      "columns": {
+        "type": "Type",
+        "quantity": "Quantity",
+        "consignment": "Consignment",
+        "date": "Date"
+      },
+      "type": {
+        "restock": "Restock",
+        "consumption": "Consumption",
+        "adjustment": "Adjustment"
+      },
+      "loading": "Loading history...",
+      "error": "Couldn't load history.",
+      "empty": "No movements recorded yet",
+      "close": "Close"
+    }
+  }
+}

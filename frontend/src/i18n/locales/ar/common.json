@@ -1,0 +1,512 @@
+{
+  "app": {
+    "brandName": "وينيتكس للنسيج والملابس",
+    "welcomeUser": "مرحبًا، {{name}}",
+    "logout": "تسجيل الخروج",
+    "refreshData": "تحديث البيانات",
+    "comingSoonTitle": "قريبًا",
+    "comingSoonDescription": "هذا القسم قيد الإنشاء وسيتم تفعيله في مرحلة قادمة."
+  },
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "hr": "الموارد البشرية",
+    "weighing": "التوزين والصباغة",
+    "accounting": "الحسابات والفواتير",
+    "shipments": "الشحنات",
+    "inventory": "المخزون",
+    "admin": "إدارة المستخدمين"
+  },
+  "roles": {
+    "admin": "مدير النظام",
+    "hr": "الموارد البشرية"
+  },
+  "auth": {
+    "eyebrow": "وينيتكس للنسيج والملابس",
+    "title": "تسجيل الدخول إلى نظام المصنع",
+    "subtitle": "سجّل الدخول بحساب موظفك، وسيتم تحويلك تلقائيًا للوحة المناسبة لصلاحيتك.",
+    "featureAdminTitle": "الإدارة",
+    "featureAdminDescription": "متابعة الإرساليات والتوزين والصباغة والفواتير.",
+    "featureHrTitle": "الموارد البشرية",
+    "featureHrDescription": "بيانات الموظفين والحضور والإجازات والرواتب.",
+    "loginKicker": "تسجيل الدخول",
+    "loginTitle": "ادخل بيانات حسابك",
+    "emailLabel": "البريد الإلكتروني",
+    "emailPlaceholder": "name@winitex-eg.com",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "ادخل كلمة المرور",
+    "rememberMe": "تذكرني",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "submitIdle": "تسجيل الدخول",
+    "submitLoading": "جاري تسجيل الدخول...",
+    "genericError": "فشل تسجيل الدخول.",
+    "redirectingSuffix": "جاري تحويلك الآن..."
+  },
+  "common": {
+    "retry": "إعادة المحاولة",
+    "currency": "EGP"
+  },
+  "errors": {
+    "notFoundTitle": "الصفحة غير موجودة",
+    "notFoundDescription": "الرابط الذي حاولت فتحه غير موجود.",
+    "backToDashboard": "العودة إلى لوحة التحكم",
+    "forbiddenTitle": "لا تملك صلاحية الوصول",
+    "forbiddenDescription": "حسابك لا يملك صلاحية الوصول لهذا القسم."
+  },
+  "dashboard": {
+    "title": "لوحة تحكم العمليات",
+    "roleLabel": {
+      "admin": "لوحة الإدارة",
+      "hr": "لوحة الموارد البشرية"
+    },
+    "stat": {
+      "received": "مستلمة",
+      "inProduction": "قيد التصنيع",
+      "readyForDelivery": "جاهزة للتسليم",
+      "openHint": "رسائل مفتوحة",
+      "loading": "جاري تحميل الرسائل...",
+      "error": "تعذر تحميل الرسائل ({{title}})."
+    },
+    "custody": {
+      "title": "المخزن الحالي — خامات أمانات",
+      "subtitle": "الكمية فقط بدون قيمة مالية",
+      "loading": "جاري تحميل المخزون...",
+      "error": "تعذر تحميل المخزون.",
+      "totalKg": "الوزن الكلي (kg)",
+      "totalMetres": "الطول الكلي (متر)",
+      "empty": "لا يوجد مخزون متاح"
+    },
+    "overdueConsignments": {
+      "title": "رسائل متأخرة",
+      "subtitle": "عند تجاوز {{threshold}} يومًا",
+      "loading": "جاري تحميل الرسائل المتأخرة...",
+      "error": "تعذر تحميل الرسائل المتأخرة.",
+      "daysOverdue": "{{count}} يوم",
+      "unknownCustomer": "عميل غير محدد",
+      "empty": "لا توجد رسائل متأخرة"
+    },
+    "receivedRange": {
+      "title": "رسائل مستلمة اليوم / هذا الأسبوع",
+      "subtitle": "تبديل النطاق",
+      "today": "اليوم",
+      "week": "هذا الأسبوع",
+      "todayLabel": "الرسائل المستلمة اليوم",
+      "weekLabel": "الرسائل المستلمة هذا الأسبوع"
+    },
+    "topCustomers": {
+      "title": "أعلى العملاء من حيث كمية الأقمشة المفتوحة",
+      "subtitle": "أفضل {{count}} عملاء",
+      "loading": "جاري تحميل أعلى العملاء...",
+      "error": "تعذر تحميل قائمة العملاء.",
+      "openFabrics": "الأقمشة المفتوحة",
+      "unknownCustomer": "عميل غير محدد",
+      "empty": "لا توجد بيانات عملاء"
+    },
+    "customerBalance": {
+      "title": "رصيد العميل (كارتة العملاء)",
+      "subtitle": "ابحث بالاسم أو الكود ثم اختر العميل",
+      "searchPlaceholder": "ابحث عن العميل",
+      "loading": "جاري تحميل رصيد العميل...",
+      "error": "تعذر تحميل رصيد العميل.",
+      "currentBalance": "الرصيد الحالي",
+      "updated": "تم تحديث البيانات لهذا العميل",
+      "empty": "لا يوجد رصيد متاح لهذا العميل"
+    },
+    "draftInvoices": {
+      "title": "فواتير تحت الإعداد (غير مُصدَرة)",
+      "subtitle": "حالة: مسودة",
+      "loading": "جاري تحميل الفواتير...",
+      "error": "تعذر تحميل الفواتير.",
+      "count": "عدد الفواتير غير المصدرة",
+      "empty": "لا توجد فواتير تحت الإعداد"
+    },
+    "overdueInvoices": {
+      "title": "فواتير متأخرة السداد",
+      "subtitle": "فواتير منتهية وتحتاج متابعة",
+      "loading": "جاري تحميل الفواتير المتأخرة...",
+      "error": "تعذر تحميل الفواتير المتأخرة.",
+      "empty": "لا توجد فواتير متأخرة"
+    },
+    "monthlyRevenue": {
+      "title": "إجمالي فاتورة الصباغة هذا الشهر",
+      "subtitle": "الفواتير المعتمدة هذا الشهر",
+      "loading": "جاري تحميل الإيراد الشهري...",
+      "error": "تعذر تحميل الإيراد الشهري.",
+      "total": "الإجمالي الشهري",
+      "empty": "لا توجد إيرادات لهذا الشهر"
+    },
+    "alerts": {
+      "title": "تنبيهات",
+      "subtitle": "أهم النقاط التي تتطلب متابعة",
+      "loading": "جاري تحميل التنبيهات...",
+      "error": "تعذر تحميل التنبيهات.",
+      "overdueTitle": "رسائل مفتوحة تجاوزت مدة معينة",
+      "overdueDescription": "تتطلب مراجعة سريعة",
+      "viewDetails": "عرض التفاصيل",
+      "consignmentAlertBody": "تفاصيل الرسالة",
+      "loadingUnpriced": "جاري تحميل الأصناف غير المسعّرة...",
+      "errorUnpriced": "تعذر تحميل الأصناف غير المسعّرة.",
+      "unpricedTitle": "أصناف بدون سعر معتمد",
+      "unpricedDescription": "{{count}} صنف يحتاج تصحيح السعر",
+      "unpricedAlertBody": "تفاصيل الأصناف",
+      "emptyUnpriced": "لا توجد أصناف بدون سعر معتمد",
+      "loadingLowStock": "جاري تحميل حالة المخزون...",
+      "errorLowStock": "تعذر تحميل حالة المخزون.",
+      "lowStockTitle": "أصناف منخفضة المخزون",
+      "lowStockDescription": "{{count}} صنف بحاجة لإعادة الطلب",
+      "lowStockAlertBody": "راجع صفحة المخزون لمعرفة التفاصيل",
+      "emptyLowStock": "لا توجد أصناف منخفضة المخزون",
+      "empty": "لا توجد تنبيهات حالياً"
+    },
+    "quickActions": {
+      "title": "إجراءات سريعة",
+      "subtitle": "تنقل سريع بين العمليات الأساسية",
+      "newConsignment": "تكويد رسالة جديدة",
+      "newConsignmentAlert": "الانتقال إلى /consignments/new",
+      "newInvoice": "فاتورة صباغة جديدة",
+      "newInvoiceAlert": "الانتقال إلى /invoices/new",
+      "searchPlaceholder": "استعلام برقم الرسالة / اسم العميل",
+      "searchButton": "بحث"
+    },
+    "upcomingCardPlaceholder": "بطاقة إضافية للعمليات القادمة"
+  },
+  "weighing": {
+    "subtitle": "بطاقات التوزين والصباغة — وزن قبل الصباغة، مكونات الصباغة، ثم وزن بعد الصباغة",
+    "newButton": "رسالة جديدة",
+    "filters": {
+      "all": "الكل"
+    },
+    "table": {
+      "columns": {
+        "consignmentNo": "رقم الرسالة",
+        "customer": "العميل",
+        "fabric": "القماش",
+        "status": "الحالة",
+        "preDyeWeight": "الوزن قبل الصباغة",
+        "receivedAt": "تاريخ الاستلام"
+      },
+      "loading": "جاري تحميل الرسائل...",
+      "error": "تعذر تحميل الرسائل.",
+      "empty": "لا توجد رسائل بعد"
+    },
+    "form": {
+      "title": "رسالة جديدة",
+      "customerName": "اسم العميل",
+      "customerNamePlaceholder": "اسم العميل أو المصنع",
+      "fabricName": "اسم/نوع القماش",
+      "fabricNamePlaceholder": "مثال: قطن، بوليستر، حرير",
+      "preDyeWeight": "الوزن قبل الصباغة (kg)",
+      "preDyeLength": "الطول قبل الصباغة (متر)",
+      "submit": "إنشاء الرسالة",
+      "submitting": "جاري الإنشاء...",
+      "cancel": "إلغاء"
+    },
+    "detail": {
+      "title": "تفاصيل الرسالة",
+      "consignmentNo": "رقم الرسالة",
+      "customer": "العميل",
+      "fabric": "القماش",
+      "receivedAt": "تاريخ الاستلام",
+      "preDyeSection": "بيانات ما قبل الصباغة",
+      "postDyeSection": "بيانات ما بعد الصباغة",
+      "chemicalsSection": "مكونات الصباغة",
+      "chemicalsEmpty": "لم تتم إضافة أي مكونات بعد",
+      "addChemical": "إضافة مادة",
+      "chemicalName": "اسم المادة",
+      "chemicalQuantity": "الكمية",
+      "chemicalUnit": "الوحدة",
+      "remove": "حذف",
+      "startProduction": "بدء الإنتاج",
+      "startProductionHint": "أضف مكونات الصباغة أولاً قبل بدء الإنتاج",
+      "postDyeWeight": "الوزن بعد الصباغة (kg)",
+      "postDyeLength": "الطول بعد الصباغة (متر)",
+      "complete": "تحديد كجاهزة للتسليم",
+      "notCompletedYet": "لم يتم تسجيل وزن ما بعد الصباغة بعد",
+      "readyBanner": "هذه الرسالة جاهزة للتسليم — لا يمكن تعديلها",
+      "close": "إغلاق"
+    }
+  },
+  "admin": {
+    "newButton": "مستخدم جديد",
+    "table": {
+      "columns": {
+        "fullName": "الاسم",
+        "email": "البريد الإلكتروني",
+        "role": "الدور",
+        "status": "الحالة",
+        "createdAt": "تاريخ الإنشاء",
+        "actions": "إجراءات"
+      },
+      "loading": "جاري تحميل المستخدمين...",
+      "error": "تعذر تحميل المستخدمين.",
+      "empty": "لا يوجد مستخدمون بعد",
+      "active": "مفعّل",
+      "inactive": "غير مفعّل",
+      "edit": "تعديل",
+      "resetPassword": "إعادة تعيين كلمة المرور",
+      "deactivate": "إلغاء التفعيل",
+      "activate": "تفعيل",
+      "youBadge": "أنت"
+    },
+    "form": {
+      "createTitle": "مستخدم جديد",
+      "editTitle": "تعديل المستخدم",
+      "fullName": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "passwordHint": "٨ أحرف على الأقل",
+      "role": "الدور",
+      "submitCreate": "إنشاء المستخدم",
+      "submitEdit": "حفظ التغييرات",
+      "submitting": "جاري الحفظ...",
+      "cancel": "إلغاء",
+      "roleLockedSelf": "لا يمكنك تغيير دور حسابك الخاص"
+    },
+    "resetPasswordModal": {
+      "title": "إعادة تعيين كلمة المرور",
+      "newPassword": "كلمة المرور الجديدة",
+      "submit": "تغيير كلمة المرور",
+      "submitting": "جاري التغيير...",
+      "success": "تم تغيير كلمة المرور بنجاح."
+    },
+    "confirmDeactivateSelf": "لا يمكنك إلغاء تفعيل حسابك الخاص"
+  },
+  "accounting": {
+    "newButton": "فاتورة جديدة",
+    "filters": {
+      "all": "الكل",
+      "draft": "مسودة",
+      "issued": "صادرة",
+      "paid": "مدفوعة",
+      "overdue": "متأخرة"
+    },
+    "status": {
+      "draft": "مسودة",
+      "issued": "صادرة",
+      "paid": "مدفوعة"
+    },
+    "table": {
+      "columns": {
+        "invoiceNo": "رقم الفاتورة",
+        "customer": "العميل",
+        "status": "الحالة",
+        "total": "الإجمالي",
+        "dueDate": "تاريخ الاستحقاق"
+      },
+      "loading": "جاري تحميل الفواتير...",
+      "error": "تعذر تحميل الفواتير.",
+      "empty": "لا توجد فواتير بعد"
+    },
+    "newInvoiceModal": {
+      "title": "فاتورة جديدة",
+      "customerLabel": "العميل",
+      "customerPlaceholder": "ابحث عن اسم العميل",
+      "consignmentsLabel": "اختر الرسائل الجاهزة للفوترة",
+      "consignmentsEmpty": "لا توجد رسائل جاهزة للفوترة لهذا العميل",
+      "submit": "إنشاء الفاتورة",
+      "submitting": "جاري الإنشاء...",
+      "cancel": "إلغاء"
+    },
+    "detail": {
+      "title": "تفاصيل الفاتورة",
+      "invoiceNo": "رقم الفاتورة",
+      "customer": "العميل",
+      "linesSection": "بنود الفاتورة",
+      "lineTypeChemical": "مادة صباغة",
+      "lineTypeFabric": "خدمة صباغة",
+      "priceLabel": "السعر",
+      "unitPriceUnset": "غير مُسعّر",
+      "total": "الإجمالي",
+      "dueDateLabel": "تاريخ الاستحقاق",
+      "issueButton": "إصدار الفاتورة",
+      "issueBlockedHint": "يجب تسعير كل البنود أولاً قبل الإصدار",
+      "markPaidButton": "تحديد كمدفوعة",
+      "paidBanner": "تم دفع هذه الفاتورة",
+      "issuedBanner": "تم إصدار هذه الفاتورة — لا يمكن تعديل الأسعار",
+      "close": "إغلاق"
+    }
+  },
+  "hr": {
+    "tabs": {
+      "employees": "الموظفون",
+      "attendance": "الحضور",
+      "leave": "الإجازات",
+      "payroll": "الرواتب"
+    },
+    "employees": {
+      "newButton": "موظف جديد",
+      "table": {
+        "columns": {
+          "fullName": "الاسم",
+          "position": "الوظيفة",
+          "department": "القسم",
+          "phone": "الهاتف",
+          "hireDate": "تاريخ التعيين",
+          "salary": "الراتب الشهري",
+          "status": "الحالة",
+          "actions": "إجراءات"
+        },
+        "loading": "جاري تحميل الموظفين...",
+        "error": "تعذر تحميل الموظفين.",
+        "empty": "لا يوجد موظفون بعد",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "edit": "تعديل",
+        "deactivate": "إلغاء التفعيل",
+        "activate": "تفعيل"
+      },
+      "form": {
+        "createTitle": "موظف جديد",
+        "editTitle": "تعديل بيانات الموظف",
+        "fullName": "الاسم الكامل",
+        "position": "الوظيفة",
+        "department": "القسم",
+        "phone": "الهاتف",
+        "hireDate": "تاريخ التعيين",
+        "monthlySalary": "الراتب الشهري",
+        "submitCreate": "إضافة الموظف",
+        "submitEdit": "حفظ التغييرات",
+        "submitting": "جاري الحفظ...",
+        "cancel": "إلغاء"
+      }
+    },
+    "attendance": {
+      "dateLabel": "التاريخ",
+      "loading": "جاري تحميل بيانات الحضور...",
+      "error": "تعذر تحميل بيانات الحضور.",
+      "empty": "لا يوجد موظفون نشطون",
+      "status": {
+        "present": "حاضر",
+        "absent": "غائب",
+        "late": "متأخر"
+      }
+    },
+    "leave": {
+      "newButton": "طلب جديد",
+      "filters": {
+        "all": "الكل",
+        "pending": "قيد المراجعة",
+        "approved": "موافق عليها",
+        "rejected": "مرفوضة"
+      },
+      "type": {
+        "vacation": "إجازة اعتيادية",
+        "sick": "إجازة مرضية",
+        "other": "أخرى"
+      },
+      "table": {
+        "columns": {
+          "employee": "الموظف",
+          "type": "نوع الإجازة",
+          "startDate": "من",
+          "endDate": "إلى",
+          "status": "الحالة",
+          "actions": "إجراءات"
+        },
+        "loading": "جاري تحميل طلبات الإجازة...",
+        "error": "تعذر تحميل طلبات الإجازة.",
+        "empty": "لا توجد طلبات إجازة بعد",
+        "approve": "موافقة",
+        "reject": "رفض"
+      },
+      "form": {
+        "title": "طلب إجازة جديد",
+        "employeeLabel": "الموظف",
+        "typeLabel": "نوع الإجازة",
+        "startDate": "من تاريخ",
+        "endDate": "إلى تاريخ",
+        "reason": "السبب",
+        "submit": "تسجيل الطلب",
+        "submitting": "جاري التسجيل...",
+        "cancel": "إلغاء"
+      }
+    },
+    "payroll": {
+      "employeeLabel": "الموظف",
+      "monthLabel": "الشهر",
+      "generateButton": "إصدار فيش الراتب",
+      "generating": "جاري الإصدار...",
+      "resultTitle": "نتيجة الحساب",
+      "baseSalary": "الراتب الأساسي",
+      "absentDays": "أيام الغياب غير المعتمدة",
+      "deduction": "الخصم",
+      "netPay": "الصافي",
+      "table": {
+        "columns": {
+          "employee": "الموظف",
+          "month": "الشهر",
+          "baseSalary": "الراتب الأساسي",
+          "absentDays": "أيام الغياب",
+          "deduction": "الخصم",
+          "netPay": "الصافي"
+        },
+        "loading": "جاري تحميل الفيش السابقة...",
+        "error": "تعذر تحميل الفيش السابقة.",
+        "empty": "لا توجد فيش رواتب صادرة بعد"
+      }
+    }
+  },
+  "inventory": {
+    "newButton": "صنف جديد",
+    "type": {
+      "fabric": "قماش",
+      "chemical": "مادة كيميائية"
+    },
+    "table": {
+      "columns": {
+        "type": "النوع",
+        "name": "الاسم",
+        "quantity": "الكمية المتاحة",
+        "reorderThreshold": "حد إعادة الطلب",
+        "status": "الحالة",
+        "actions": "إجراءات"
+      },
+      "loading": "جاري تحميل المخزون...",
+      "error": "تعذر تحميل المخزون.",
+      "empty": "لا توجد أصناف مخزون بعد",
+      "ok": "متوفر",
+      "low": "منخفض",
+      "restock": "توريد",
+      "edit": "تعديل",
+      "history": "السجل"
+    },
+    "form": {
+      "createTitle": "صنف جديد",
+      "editTitle": "تعديل الصنف",
+      "itemType": "نوع الصنف",
+      "name": "الاسم",
+      "unit": "الوحدة",
+      "quantityOnHand": "الكمية الحالية",
+      "reorderThreshold": "حد إعادة الطلب",
+      "submitCreate": "إضافة الصنف",
+      "submitEdit": "حفظ التغييرات",
+      "submitting": "جاري الحفظ...",
+      "cancel": "إلغاء"
+    },
+    "restockModal": {
+      "title": "توريد مخزون جديد",
+      "quantity": "الكمية المضافة",
+      "note": "ملاحظة (اختياري)",
+      "submit": "تسجيل التوريد",
+      "submitting": "جاري التسجيل...",
+      "cancel": "إلغاء"
+    },
+    "transactionsModal": {
+      "title": "سجل حركة المخزون",
+      "columns": {
+        "type": "نوع الحركة",
+        "quantity": "الكمية",
+        "consignment": "الرسالة",
+        "date": "التاريخ"
+      },
+      "type": {
+        "restock": "توريد",
+        "consumption": "استهلاك",
+        "adjustment": "تعديل"
+      },
+      "loading": "جاري تحميل السجل...",
+      "error": "تعذر تحميل السجل.",
+      "empty": "لا توجد حركات مسجلة بعد",
+      "close": "إغلاق"
+    }
+  }
+}

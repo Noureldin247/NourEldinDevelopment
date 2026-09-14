@@ -20,10 +20,8 @@ const loginLimiter = rateLimit({
 // يحدد أي صفحة يتحول لها كل دور بعد الدخول
 // Determines which dashboard each role lands on after logging in.
 const roleRedirect = {
-  admin: '/admin',
-  hr: '/hr',
-  operator: '/operator',
-  accountant: '/accountant',
+  admin: '/dashboard',
+  hr: '/dashboard',
 };
 
 // هاش وهمي يُستخدم لما الإيميل مش موجود، عشان زمن الاستجابة يفضل ثابت

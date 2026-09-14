@@ -26,7 +26,7 @@ export function useCustomerStatement(customerId) {
   return useQuery({
     queryKey: ['customer-statement', customerId],
     enabled: Boolean(customerId),
-    queryFn: () => requestJson(`/reports/customer-statement/${customerId}`),
+    queryFn: () => requestJson(`/reports/customer-statement/${encodeURIComponent(customerId)}`),
   });
 }
 
@@ -62,5 +62,12 @@ export function useUnpricedLines() {
   return useQuery({
     queryKey: ['unpriced-lines'],
     queryFn: () => requestJson('/reports/unpriced-lines'),
+  });
+}
+
+export function useLowStockItems() {
+  return useQuery({
+    queryKey: ['low-stock'],
+    queryFn: () => requestJson('/reports/low-stock'),
   });
 }
