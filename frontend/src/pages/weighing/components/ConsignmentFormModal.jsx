@@ -1,23 +1,57 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Modal from '../../../components/Modal';
+import CatalogPicker from '../../../components/CatalogPicker';
 import { useCreateConsignment } from '../../../hooks/useWeighingQueries';
+import { useCustomers, useCreateCustomer } from '../../../hooks/useCustomerQueries';
+import { useInventoryItems, useCreateInventoryItem } from '../../../hooks/useInventoryQueries';
 
 export default function ConsignmentFormModal({ onClose, onCreated }) {
   const { t } = useTranslation();
-  const [customerName, setCustomerName] = useState('');
-  const [fabricName, setFabricName] = useState('');
+  const [customerSearch, setCustomerSearch] = useState('');
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [fabricSearch, setFabricSearch] = useState('');
+  const [selectedFabric, setSelectedFabric] = useState(null);
   const [preDyeWeightKg, setPreDyeWeightKg] = useState('');
   const [preDyeLengthM, setPreDyeLengthM] = useState('');
+
+  const { data: customersData, isLoading: isLoadingCustomers } = useCustomers(customerSearch);
+  const { data: fabricsData, isLoading: isLoadingFabrics } = useInventoryItems({ itemType: 'FABRIC' });
+  const createCustomer = useCreateCustomer();
+  const createFabricItem = useCreateInventoryItem();
   const createConsignment = useCreateConsignment();
+
+  const filteredFabrics = (fabricsData?.data ?? []).filter((item) =>
+    item.name.toLowerCase().includes(fabricSearch.toLowerCase())
+  );
+
+  async function handleQuickCreateCustomer(name) {
+    const result = await createCustomer.mutateAsync({ fullName: name });
+    return result.data;
+  }
+
+  async function handleQuickCreateFabric(name) {
+    const result = await createFabricItem.mutateAsync({
+      itemType: 'FABRIC',
+      name,
+      unit: 'kg',
+      quantityOnHand: 0,
+      reorderThreshold: 0,
+    });
+    return result.data;
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
 
+    if (!selectedCustomer || !selectedFabric) {
+      return;
+    }
+
     try {
       const result = await createConsignment.mutateAsync({
-        customerName,
-        fabricName,
+        customerId: selectedCustomer.id,
+        fabricItemId: selectedFabric.id,
         preDyeWeightKg: Number(preDyeWeightKg),
         preDyeLengthM: Number(preDyeLengthM),
       });
@@ -30,27 +64,43 @@ export default function ConsignmentFormModal({ onClose, onCreated }) {
   return (
     <Modal title={t('weighing.form.title')} onClose={onClose}>
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <label className="block space-y-1">
-          <span className="text-sm font-medium text-slate-700">{t('weighing.form.customerName')}</span>
-          <input
-            required
-            value={customerName}
-            onChange={(event) => setCustomerName(event.target.value)}
-            placeholder={t('weighing.form.customerNamePlaceholder')}
-            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none"
-          />
-        </label>
+        <CatalogPicker
+          label={t('weighing.form.customerName')}
+          placeholder={t('weighing.form.customerSearchPlaceholder')}
+          selectedLabel={selectedCustomer?.fullName}
+          search={customerSearch}
+          onSearchChange={(value) => {
+            setCustomerSearch(value);
+            setSelectedCustomer(null);
+          }}
+          items={customersData?.data ?? []}
+          isLoading={isLoadingCustomers}
+          onSelect={setSelectedCustomer}
+          getOptionLabel={(item) => item.fullName}
+          getOptionSubLabel={(item) => item.customerCode}
+          quickCreateLabel={t('weighing.form.addNewCustomer')}
+          onQuickCreate={handleQuickCreateCustomer}
+          isCreating={createCustomer.isPending}
+        />
 
-        <label className="block space-y-1">
-          <span className="text-sm font-medium text-slate-700">{t('weighing.form.fabricName')}</span>
-          <input
-            required
-            value={fabricName}
-            onChange={(event) => setFabricName(event.target.value)}
-            placeholder={t('weighing.form.fabricNamePlaceholder')}
-            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none"
-          />
-        </label>
+        <CatalogPicker
+          label={t('weighing.form.fabricName')}
+          placeholder={t('weighing.form.fabricSearchPlaceholder')}
+          selectedLabel={selectedFabric?.name}
+          search={fabricSearch}
+          onSearchChange={(value) => {
+            setFabricSearch(value);
+            setSelectedFabric(null);
+          }}
+          items={filteredFabrics}
+          isLoading={isLoadingFabrics}
+          onSelect={setSelectedFabric}
+          getOptionLabel={(item) => item.name}
+          getOptionSubLabel={(item) => item.code}
+          quickCreateLabel={t('weighing.form.addNewFabric')}
+          onQuickCreate={handleQuickCreateFabric}
+          isCreating={createFabricItem.isPending}
+        />
 
         <div className="grid grid-cols-2 gap-3">
           <label className="block space-y-1">
@@ -92,7 +142,7 @@ export default function ConsignmentFormModal({ onClose, onCreated }) {
           </button>
           <button
             type="submit"
-            disabled={createConsignment.isPending}
+            disabled={!selectedCustomer || !selectedFabric || createConsignment.isPending}
             className="rounded-full bg-slate-900 px-4 py-2 text-sm text-white disabled:opacity-60"
           >
             {createConsignment.isPending ? t('weighing.form.submitting') : t('weighing.form.submit')}

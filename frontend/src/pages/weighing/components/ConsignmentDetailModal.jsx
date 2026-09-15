@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Modal from '../../../components/Modal';
+import CatalogPicker from '../../../components/CatalogPicker';
 import {
   useConsignment,
   useAddDyeChemical,
@@ -8,6 +9,7 @@ import {
   useStartProduction,
   useCompleteConsignment,
 } from '../../../hooks/useWeighingQueries';
+import { useInventoryItems, useCreateInventoryItem } from '../../../hooks/useInventoryQueries';
 
 function StatusBadge({ status }) {
   const { t } = useTranslation();
@@ -31,18 +33,41 @@ function StatusBadge({ status }) {
 
 function ChemicalsSection({ consignment, isEditable }) {
   const { t, i18n } = useTranslation();
-  const [chemicalName, setChemicalName] = useState('');
+  const [chemicalSearch, setChemicalSearch] = useState('');
+  const [selectedChemical, setSelectedChemical] = useState(null);
   const [quantity, setQuantity] = useState('');
-  const [unit, setUnit] = useState('kg');
   const addChemical = useAddDyeChemical(consignment.id);
   const removeChemical = useRemoveDyeChemical(consignment.id);
+  const { data: chemicalsData, isLoading: isLoadingChemicals } = useInventoryItems({ itemType: 'CHEMICAL' });
+  const createChemicalItem = useCreateInventoryItem();
   const numberLocale = i18n.language === 'ar' ? 'ar-EG' : 'en-US';
+
+  const filteredChemicals = (chemicalsData?.data ?? []).filter((item) =>
+    item.name.toLowerCase().includes(chemicalSearch.toLowerCase())
+  );
+
+  async function handleQuickCreateChemical(name) {
+    const result = await createChemicalItem.mutateAsync({
+      itemType: 'CHEMICAL',
+      name,
+      unit: 'kg',
+      quantityOnHand: 0,
+      reorderThreshold: 0,
+    });
+    return result.data;
+  }
 
   async function handleAdd(event) {
     event.preventDefault();
+
+    if (!selectedChemical) {
+      return;
+    }
+
     try {
-      await addChemical.mutateAsync({ chemicalName, quantity: Number(quantity), unit });
-      setChemicalName('');
+      await addChemical.mutateAsync({ chemicalItemId: selectedChemical.id, quantity: Number(quantity) });
+      setChemicalSearch('');
+      setSelectedChemical(null);
       setQuantity('');
     } catch (error) {
       // surfaced via addChemical.error below
@@ -83,17 +108,30 @@ function ChemicalsSection({ consignment, isEditable }) {
 
       {isEditable ? (
         <form onSubmit={handleAdd} className="flex flex-wrap items-end gap-2">
-          <label className="flex-1 space-y-1">
-            <span className="text-xs font-medium text-slate-600">{t('weighing.detail.chemicalName')}</span>
-            <input
-              required
-              value={chemicalName}
-              onChange={(event) => setChemicalName(event.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none"
+          <div className="min-w-[220px] flex-1">
+            <CatalogPicker
+              label={t('weighing.detail.chemicalName')}
+              placeholder={t('weighing.detail.chemicalSearchPlaceholder')}
+              selectedLabel={selectedChemical?.name}
+              search={chemicalSearch}
+              onSearchChange={(value) => {
+                setChemicalSearch(value);
+                setSelectedChemical(null);
+              }}
+              items={filteredChemicals}
+              isLoading={isLoadingChemicals}
+              onSelect={setSelectedChemical}
+              getOptionLabel={(item) => item.name}
+              getOptionSubLabel={(item) => item.code}
+              quickCreateLabel={t('weighing.detail.addNewChemical')}
+              onQuickCreate={handleQuickCreateChemical}
+              isCreating={createChemicalItem.isPending}
             />
-          </label>
+          </div>
           <label className="w-24 space-y-1">
-            <span className="text-xs font-medium text-slate-600">{t('weighing.detail.chemicalQuantity')}</span>
+            <span className="text-xs font-medium text-slate-600">
+              {t('weighing.detail.chemicalQuantity')} {selectedChemical ? `(${selectedChemical.unit})` : ''}
+            </span>
             <input
               required
               type="number"
@@ -104,16 +142,11 @@ function ChemicalsSection({ consignment, isEditable }) {
               className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none"
             />
           </label>
-          <label className="w-20 space-y-1">
-            <span className="text-xs font-medium text-slate-600">{t('weighing.detail.chemicalUnit')}</span>
-            <input
-              required
-              value={unit}
-              onChange={(event) => setUnit(event.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none"
-            />
-          </label>
-          <button type="submit" disabled={addChemical.isPending} className="rounded-xl bg-slate-900 px-3 py-2 text-sm text-white disabled:opacity-60">
+          <button
+            type="submit"
+            disabled={!selectedChemical || addChemical.isPending}
+            className="rounded-xl bg-slate-900 px-3 py-2 text-sm text-white disabled:opacity-60"
+          >
             {t('weighing.detail.addChemical')}
           </button>
         </form>

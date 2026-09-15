@@ -10,7 +10,9 @@ const guard = [requireAuth, requireRole('admin', 'hr')];
 const ITEM_TYPES = ['FABRIC', 'CHEMICAL'];
 
 const INVENTORY_SELECT = `
-  SELECT id, item_type AS "itemType", name, unit, quantity_on_hand AS "quantityOnHand",
+  SELECT id,
+         CASE WHEN item_type = 'FABRIC' THEN 'FAB-' ELSE 'CHM-' END || lpad(id::text, 6, '0') AS "code",
+         item_type AS "itemType", name, unit, quantity_on_hand AS "quantityOnHand",
          reorder_threshold AS "reorderThreshold", created_at AS "createdAt"
   FROM inventory_items
 `;
@@ -24,11 +26,23 @@ function isPositiveNumber(value) {
 }
 
 router.get('/inventory-items', ...guard, async (req, res) => {
-  const { lowStock } = req.query;
-  const where = lowStock === 'true' ? 'WHERE quantity_on_hand <= reorder_threshold' : '';
+  const { lowStock, itemType } = req.query;
+  const conditions = [];
+  const params = [];
+
+  if (lowStock === 'true') {
+    conditions.push('quantity_on_hand <= reorder_threshold');
+  }
+
+  if (ITEM_TYPES.includes(itemType)) {
+    params.push(itemType);
+    conditions.push(`item_type = $${params.length}`);
+  }
+
+  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
 
   try {
-    const { rows } = await pool.query(`${INVENTORY_SELECT} ${where} ORDER BY item_type ASC, name ASC`);
+    const { rows } = await pool.query(`${INVENTORY_SELECT} ${where} ORDER BY item_type ASC, name ASC`, params);
     return res.json({ data: rows });
   } catch (error) {
     console.error('List inventory items error:', error);

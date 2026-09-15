@@ -19,7 +19,9 @@ const CONSIGNMENT_SELECT = `
   SELECT
     id,
     'CN-' || lpad(id::text, 6, '0') AS "consignmentNo",
+    customer_id AS "customerId",
     customer_name AS "customerName",
+    fabric_item_id AS "fabricItemId",
     fabric_name AS "fabricName",
     status,
     pre_dye_weight_kg AS "preDyeWeightKg",
@@ -58,18 +60,31 @@ router.get('/consignments', async (req, res) => {
 });
 
 router.post('/consignments', async (req, res) => {
-  const { customerName, fabricName, preDyeWeightKg, preDyeLengthM } = req.body ?? {};
+  const { customerId, fabricItemId, preDyeWeightKg, preDyeLengthM } = req.body ?? {};
 
-  if (!customerName || !fabricName || !isPositiveNumber(preDyeWeightKg) || !isPositiveNumber(preDyeLengthM)) {
-    return res.status(400).json({ message: 'اسم العميل ونوع القماش والوزن والطول قبل الصباغة مطلوبة وبقيم صحيحة.' });
+  if (!customerId || !fabricItemId || !isPositiveNumber(preDyeWeightKg) || !isPositiveNumber(preDyeLengthM)) {
+    return res.status(400).json({ message: 'العميل ونوع القماش والوزن والطول قبل الصباغة مطلوبة وبقيم صحيحة.' });
   }
 
   try {
+    const { rows: customerRows } = await pool.query('SELECT full_name FROM customers WHERE id = $1', [customerId]);
+    if (!customerRows[0]) {
+      return res.status(404).json({ message: 'العميل غير موجود.' });
+    }
+
+    const { rows: fabricRows } = await pool.query(
+      "SELECT name FROM inventory_items WHERE id = $1 AND item_type = 'FABRIC'",
+      [fabricItemId]
+    );
+    if (!fabricRows[0]) {
+      return res.status(404).json({ message: 'نوع القماش غير موجود في المخزون.' });
+    }
+
     const { rows } = await pool.query(
-      `INSERT INTO consignments (customer_name, fabric_name, pre_dye_weight_kg, pre_dye_length_m, created_by)
-       VALUES ($1, $2, $3, $4, $5)
+      `INSERT INTO consignments (customer_id, customer_name, fabric_item_id, fabric_name, pre_dye_weight_kg, pre_dye_length_m, created_by)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING id`,
-      [customerName.trim(), fabricName.trim(), preDyeWeightKg, preDyeLengthM, req.user.sub]
+      [customerId, customerRows[0].full_name, fabricItemId, fabricRows[0].name, preDyeWeightKg, preDyeLengthM, req.user.sub]
     );
 
     const { rows: created } = await pool.query(`${CONSIGNMENT_SELECT} WHERE id = $1`, [rows[0].id]);
@@ -91,7 +106,8 @@ router.get('/consignments/:id', async (req, res) => {
     }
 
     const { rows: chemicals } = await pool.query(
-      `SELECT id, chemical_name AS "chemicalName", quantity, unit, created_at AS "createdAt"
+      `SELECT id, chemical_item_id AS "chemicalItemId", chemical_name AS "chemicalName",
+              quantity, unit, created_at AS "createdAt"
        FROM consignment_dye_chemicals WHERE consignment_id = $1 ORDER BY created_at ASC`,
       [req.params.id]
     );
@@ -104,10 +120,10 @@ router.get('/consignments/:id', async (req, res) => {
 });
 
 router.post('/consignments/:id/chemicals', async (req, res) => {
-  const { chemicalName, quantity, unit } = req.body ?? {};
+  const { chemicalItemId, quantity } = req.body ?? {};
 
-  if (!chemicalName || !isPositiveNumber(quantity)) {
-    return res.status(400).json({ message: 'اسم المادة والكمية مطلوبان وبقيمة صحيحة.' });
+  if (!chemicalItemId || !isPositiveNumber(quantity)) {
+    return res.status(400).json({ message: 'المادة الكيميائية والكمية مطلوبان وبقيمة صحيحة.' });
   }
 
   try {
@@ -118,11 +134,20 @@ router.post('/consignments/:id/chemicals', async (req, res) => {
       return res.status(400).json({ message: 'لا يمكن إضافة مكونات لرسالة تم الانتهاء منها.' });
     }
 
+    const { rows: chemicalRows } = await pool.query(
+      "SELECT name, unit FROM inventory_items WHERE id = $1 AND item_type = 'CHEMICAL'",
+      [chemicalItemId]
+    );
+    if (!chemicalRows[0]) {
+      return res.status(404).json({ message: 'المادة الكيميائية غير موجودة في المخزون.' });
+    }
+
     const { rows } = await pool.query(
-      `INSERT INTO consignment_dye_chemicals (consignment_id, chemical_name, quantity, unit)
-       VALUES ($1, $2, $3, $4)
-       RETURNING id, chemical_name AS "chemicalName", quantity, unit, created_at AS "createdAt"`,
-      [req.params.id, chemicalName.trim(), quantity, unit?.trim() || 'kg']
+      `INSERT INTO consignment_dye_chemicals (consignment_id, chemical_item_id, chemical_name, quantity, unit)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING id, chemical_item_id AS "chemicalItemId", chemical_name AS "chemicalName",
+                 quantity, unit, created_at AS "createdAt"`,
+      [req.params.id, chemicalItemId, chemicalRows[0].name, quantity, chemicalRows[0].unit]
     );
 
     return res.status(201).json({ message: 'تمت إضافة المادة بنجاح.', data: rows[0] });
@@ -195,7 +220,7 @@ router.patch('/consignments/:id/complete', async (req, res) => {
 
   try {
     const { rows: consignmentRows } = await pool.query(
-      'SELECT id, status, fabric_name, pre_dye_weight_kg FROM consignments WHERE id = $1',
+      'SELECT id, status, fabric_item_id, pre_dye_weight_kg FROM consignments WHERE id = $1',
       [req.params.id]
     );
     const consignment = consignmentRows[0];
@@ -209,7 +234,7 @@ router.patch('/consignments/:id/complete', async (req, res) => {
     }
 
     const { rows: chemicals } = await pool.query(
-      'SELECT chemical_name, quantity FROM consignment_dye_chemicals WHERE consignment_id = $1',
+      'SELECT chemical_item_id, quantity FROM consignment_dye_chemicals WHERE consignment_id = $1',
       [req.params.id]
     );
 
@@ -218,10 +243,9 @@ router.patch('/consignments/:id/complete', async (req, res) => {
     // Fabric and every dye chemical must have enough recorded stock before completion is allowed —
     // this automatically deducts inventory, so it can't deduct stock that isn't actually there.
     const requirements = [
-      { itemType: 'FABRIC', name: consignment.fabric_name, quantity: Number(consignment.pre_dye_weight_kg) },
+      { inventoryItemId: consignment.fabric_item_id, quantity: Number(consignment.pre_dye_weight_kg) },
       ...chemicals.map((chemical) => ({
-        itemType: 'CHEMICAL',
-        name: chemical.chemical_name,
+        inventoryItemId: chemical.chemical_item_id,
         quantity: Number(chemical.quantity),
       })),
     ];
@@ -230,7 +254,7 @@ router.patch('/consignments/:id/complete', async (req, res) => {
 
     if (shortages.length > 0) {
       const details = shortages
-        .map((shortage) => `${shortage.name} (متاح: ${shortage.available}، مطلوب: ${shortage.required})`)
+        .map((shortage) => `${shortage.name} (متاح: ${shortage.available} ${shortage.unit}، مطلوب: ${shortage.required} ${shortage.unit})`)
         .join('، ');
       return res.status(400).json({ message: `لا يوجد مخزون كافٍ لإنهاء الرسالة: ${details}` });
     }

@@ -8,6 +8,7 @@ import adminRoutes from './src/routes/admin.js';
 import invoicesRoutes from './src/routes/invoices.js';
 import hrRoutes from './src/routes/hr.js';
 import inventoryRoutes from './src/routes/inventory.js';
+import customersRoutes from './src/routes/customers.js';
 import { requireAuth, requireRole } from './src/middleware/auth.js';
 import { connectDatabase } from './src/db.js';
 
@@ -35,6 +36,7 @@ app.use('/api', adminRoutes);
 app.use('/api', invoicesRoutes);
 app.use('/api', hrRoutes);
 app.use('/api', inventoryRoutes);
+app.use('/api', customersRoutes);
 
 // Pings محمية للتأكد إن التحقق من الدور شغال فعليًا من طرف لطرف.
 // الـ routes الحقيقية (الإرساليات، التوزين، الفواتير...) هتتضاف في الخطوات الجاية.

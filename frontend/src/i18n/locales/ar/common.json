@@ -14,6 +14,7 @@
     "accounting": "الحسابات والفواتير",
     "shipments": "الشحنات",
     "inventory": "المخزون",
+    "customers": "العملاء",
     "admin": "إدارة المستخدمين"
   },
   "roles": {
@@ -190,10 +191,12 @@
     },
     "form": {
       "title": "رسالة جديدة",
-      "customerName": "اسم العميل",
-      "customerNamePlaceholder": "اسم العميل أو المصنع",
-      "fabricName": "اسم/نوع القماش",
-      "fabricNamePlaceholder": "مثال: قطن، بوليستر، حرير",
+      "customerName": "العميل",
+      "customerSearchPlaceholder": "ابحث عن عميل...",
+      "addNewCustomer": "+ إضافة عميل جديد",
+      "fabricName": "نوع القماش",
+      "fabricSearchPlaceholder": "ابحث عن نوع القماش...",
+      "addNewFabric": "+ إضافة صنف قماش جديد",
       "preDyeWeight": "الوزن قبل الصباغة (kg)",
       "preDyeLength": "الطول قبل الصباغة (متر)",
       "submit": "إنشاء الرسالة",
@@ -211,7 +214,9 @@
       "chemicalsSection": "مكونات الصباغة",
       "chemicalsEmpty": "لم تتم إضافة أي مكونات بعد",
       "addChemical": "إضافة مادة",
-      "chemicalName": "اسم المادة",
+      "chemicalName": "المادة الكيميائية",
+      "chemicalSearchPlaceholder": "ابحث عن مادة كيميائية...",
+      "addNewChemical": "+ إضافة مادة كيميائية جديدة",
       "chemicalQuantity": "الكمية",
       "chemicalUnit": "الوحدة",
       "remove": "حذف",
@@ -506,6 +511,57 @@
       "loading": "جاري تحميل السجل...",
       "error": "تعذر تحميل السجل.",
       "empty": "لا توجد حركات مسجلة بعد",
+      "close": "إغلاق"
+    }
+  },
+  "customers": {
+    "newButton": "عميل جديد",
+    "table": {
+      "columns": {
+        "code": "الكود",
+        "name": "الاسم",
+        "phone": "الهاتف",
+        "email": "البريد الإلكتروني",
+        "actions": "إجراءات"
+      },
+      "loading": "جاري تحميل العملاء...",
+      "error": "تعذر تحميل العملاء.",
+      "empty": "لا يوجد عملاء بعد",
+      "view": "عرض",
+      "edit": "تعديل"
+    },
+    "form": {
+      "createTitle": "عميل جديد",
+      "editTitle": "تعديل بيانات العميل",
+      "fullName": "الاسم الكامل",
+      "phone": "الهاتف",
+      "email": "البريد الإلكتروني",
+      "address": "العنوان",
+      "notes": "ملاحظات",
+      "submitCreate": "إضافة العميل",
+      "submitEdit": "حفظ التغييرات",
+      "submitting": "جاري الحفظ...",
+      "cancel": "إلغاء"
+    },
+    "detail": {
+      "title": "بيانات العميل",
+      "phone": "الهاتف",
+      "email": "البريد الإلكتروني",
+      "address": "العنوان",
+      "notes": "ملاحظات",
+      "ordersSection": "سجل الطلبات",
+      "ordersEmpty": "لا توجد طلبات بعد",
+      "ordersColumns": {
+        "consignmentNo": "رقم الرسالة",
+        "fabric": "القماش",
+        "status": "الحالة",
+        "weight": "الوزن قبل الصباغة",
+        "date": "تاريخ الاستلام"
+      },
+      "fabricUsageSection": "أنواع القماش المعتادة",
+      "chemicalUsageSection": "المواد الكيميائية المعتادة",
+      "usageEmpty": "لا توجد بيانات كافية بعد",
+      "usageOrderCount": "استُخدم في {{count}} طلب",
       "close": "إغلاق"
     }
   }

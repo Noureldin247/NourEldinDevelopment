@@ -4,6 +4,7 @@ import WeighingPage from '../pages/weighing/WeighingPage';
 import AccountingPage from '../pages/accounting/AccountingPage';
 import ShipmentsPage from '../pages/shipments/ShipmentsPage';
 import InventoryPage from '../pages/inventory/InventoryPage';
+import CustomersPage from '../pages/customers/CustomersPage';
 import AdminUsersPage from '../pages/admin/AdminUsersPage';
 
 // المصدر الوحيد لتعريف الوحدات — تستخدمه القائمة الجانبية والراوتر معًا
@@ -50,6 +51,13 @@ export const navConfig = [
     labelKey: 'nav.inventory',
     allowedRoles: ['admin', 'hr'],
     Component: InventoryPage,
+  },
+  {
+    key: 'customers',
+    path: '/customers',
+    labelKey: 'nav.customers',
+    allowedRoles: ['admin', 'hr'],
+    Component: CustomersPage,
   },
   {
     key: 'admin',

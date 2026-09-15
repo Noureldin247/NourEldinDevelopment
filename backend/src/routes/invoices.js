@@ -13,6 +13,7 @@ async function getInvoiceSummary(id) {
     `SELECT
        i.id,
        'INV-' || lpad(i.id::text, 6, '0') AS "invoiceNo",
+       i.customer_id AS "customerId",
        i.customer_name AS "customerName",
        i.status,
        i.due_date AS "dueDate",
@@ -120,7 +121,7 @@ router.post('/invoices', async (req, res) => {
     await client.query('BEGIN');
 
     const { rows: consignments } = await client.query(
-      `SELECT id, customer_name, fabric_name, post_dye_weight_kg, status
+      `SELECT id, customer_id, customer_name, fabric_name, post_dye_weight_kg, status
        FROM consignments WHERE id = ANY($1::int[])`,
       [consignmentIds]
     );
@@ -136,7 +137,7 @@ router.post('/invoices', async (req, res) => {
       return res.status(400).json({ message: 'لا يمكن فوترة رسالة لم تصل بعد لحالة "جاهزة للتسليم".' });
     }
 
-    const distinctCustomers = new Set(consignments.map((c) => c.customer_name));
+    const distinctCustomers = new Set(consignments.map((c) => c.customer_id));
     if (distinctCustomers.size > 1) {
       await client.query('ROLLBACK');
       return res.status(400).json({ message: 'كل الرسائل المختارة يجب أن تكون لنفس العميل.' });
@@ -152,11 +153,12 @@ router.post('/invoices', async (req, res) => {
       return res.status(400).json({ message: 'إحدى الرسائل المختارة تمت فوترتها بالفعل.' });
     }
 
+    const customerId = consignments[0].customer_id;
     const customerName = consignments[0].customer_name;
 
     const { rows: invoiceRows } = await client.query(
-      'INSERT INTO invoices (customer_name, created_by) VALUES ($1, $2) RETURNING id',
-      [customerName, req.user.sub]
+      'INSERT INTO invoices (customer_id, customer_name, created_by) VALUES ($1, $2, $3) RETURNING id',
+      [customerId, customerName, req.user.sub]
     );
     const invoiceId = invoiceRows[0].id;
 

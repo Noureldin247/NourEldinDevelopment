@@ -2,21 +2,32 @@
 // وroutes/weighing.js عشان خصم الاستهلاك التلقائي عند اكتمال الرسالة.
 // Shared inventory service — used by routes/inventory.js for restocking,
 // and routes/weighing.js for automatic consumption deduction on consignment completion.
+//
+// المطابقة بقت بالـ id مباشرة (fabric_item_id / chemical_item_id) مش بمطابقة الاسم كنص —
+// أدق (مفيش مشاكل أخطاء إملائية) وأبسط دلوقتي إن القماش والمواد الكيميائية بقى ليهم رقم تعريف من كتالوج المخزون.
+// Matching is now by id directly (fabric_item_id / chemical_item_id), not string name matching —
+// more precise (no typo mismatches) and simpler now that fabric/chemicals have real catalog ids.
 
-// requirements: [{ itemType, name, quantity }]
+// requirements: [{ inventoryItemId, quantity }]
 export async function getInventoryShortages(client, requirements) {
   const shortages = [];
 
   for (const requirement of requirements) {
-    const { rows } = await client.query(
-      'SELECT quantity_on_hand FROM inventory_items WHERE item_type = $1 AND name = $2',
-      [requirement.itemType, requirement.name]
-    );
+    const { rows } = await client.query('SELECT name, unit, quantity_on_hand FROM inventory_items WHERE id = $1', [
+      requirement.inventoryItemId,
+    ]);
 
-    const available = rows[0] ? Number(rows[0].quantity_on_hand) : 0;
+    const item = rows[0];
+    const available = item ? Number(item.quantity_on_hand) : 0;
 
     if (available < requirement.quantity) {
-      shortages.push({ itemType: requirement.itemType, name: requirement.name, available, required: requirement.quantity });
+      shortages.push({
+        inventoryItemId: requirement.inventoryItemId,
+        name: item?.name ?? '—',
+        unit: item?.unit ?? '',
+        available,
+        required: requirement.quantity,
+      });
     }
   }
 
@@ -27,16 +38,15 @@ export async function getInventoryShortages(client, requirements) {
 // Must only be called after getInventoryShortages() returned an empty array — items are guaranteed to exist and be sufficient here.
 export async function deductInventory(client, requirements, { consignmentId, userId }) {
   for (const requirement of requirements) {
-    const { rows } = await client.query(
-      `UPDATE inventory_items SET quantity_on_hand = quantity_on_hand - $3, updated_at = now()
-       WHERE item_type = $1 AND name = $2 RETURNING id`,
-      [requirement.itemType, requirement.name, requirement.quantity]
+    await client.query(
+      `UPDATE inventory_items SET quantity_on_hand = quantity_on_hand - $2, updated_at = now() WHERE id = $1`,
+      [requirement.inventoryItemId, requirement.quantity]
     );
 
     await client.query(
       `INSERT INTO inventory_transactions (inventory_item_id, change_type, quantity, consignment_id, created_by)
        VALUES ($1, 'CONSUMPTION', $2, $3, $4)`,
-      [rows[0].id, -requirement.quantity, consignmentId, userId]
+      [requirement.inventoryItemId, -requirement.quantity, consignmentId, userId]
     );
   }
 }

@@ -4,9 +4,10 @@ import { requestJson } from '../lib/api';
 export function useInventoryItems(filters = {}) {
   const params = new URLSearchParams();
   if (filters.lowStock) params.set('lowStock', 'true');
+  if (filters.itemType) params.set('itemType', filters.itemType);
 
   return useQuery({
-    queryKey: ['inventory-items', filters.lowStock ?? false],
+    queryKey: ['inventory-items', filters.lowStock ?? false, filters.itemType ?? ''],
     queryFn: () => requestJson(`/inventory-items?${params.toString()}`),
   });
 }

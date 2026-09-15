@@ -14,6 +14,7 @@
     "accounting": "Accounting & Invoices",
     "shipments": "Shipments",
     "inventory": "Inventory",
+    "customers": "Customers",
     "admin": "User Management"
   },
   "roles": {
@@ -190,10 +191,12 @@
     },
     "form": {
       "title": "New consignment",
-      "customerName": "Customer name",
-      "customerNamePlaceholder": "Customer or factory name",
-      "fabricName": "Fabric name/type",
-      "fabricNamePlaceholder": "e.g. cotton, polyester, silk",
+      "customerName": "Customer",
+      "customerSearchPlaceholder": "Search for a customer...",
+      "addNewCustomer": "+ Add new customer",
+      "fabricName": "Fabric type",
+      "fabricSearchPlaceholder": "Search for a fabric type...",
+      "addNewFabric": "+ Add new fabric",
       "preDyeWeight": "Pre-dye weight (kg)",
       "preDyeLength": "Pre-dye length (m)",
       "submit": "Create consignment",
@@ -211,7 +214,9 @@
       "chemicalsSection": "Dye chemicals",
       "chemicalsEmpty": "No chemicals added yet",
       "addChemical": "Add chemical",
-      "chemicalName": "Chemical name",
+      "chemicalName": "Dye chemical",
+      "chemicalSearchPlaceholder": "Search for a chemical...",
+      "addNewChemical": "+ Add new chemical",
       "chemicalQuantity": "Quantity",
       "chemicalUnit": "Unit",
       "remove": "Remove",
@@ -506,6 +511,57 @@
       "loading": "Loading history...",
       "error": "Couldn't load history.",
       "empty": "No movements recorded yet",
+      "close": "Close"
+    }
+  },
+  "customers": {
+    "newButton": "New customer",
+    "table": {
+      "columns": {
+        "code": "Code",
+        "name": "Name",
+        "phone": "Phone",
+        "email": "Email",
+        "actions": "Actions"
+      },
+      "loading": "Loading customers...",
+      "error": "Couldn't load customers.",
+      "empty": "No customers yet",
+      "view": "View",
+      "edit": "Edit"
+    },
+    "form": {
+      "createTitle": "New customer",
+      "editTitle": "Edit customer",
+      "fullName": "Full name",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "notes": "Notes",
+      "submitCreate": "Add customer",
+      "submitEdit": "Save changes",
+      "submitting": "Saving...",
+      "cancel": "Cancel"
+    },
+    "detail": {
+      "title": "Customer details",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "notes": "Notes",
+      "ordersSection": "Order history",
+      "ordersEmpty": "No orders yet",
+      "ordersColumns": {
+        "consignmentNo": "Ticket #",
+        "fabric": "Fabric",
+        "status": "Status",
+        "weight": "Pre-dye weight",
+        "date": "Received on"
+      },
+      "fabricUsageSection": "Usual fabric types",
+      "chemicalUsageSection": "Usual chemicals",
+      "usageEmpty": "Not enough data yet",
+      "usageOrderCount": "Used in {{count}} order(s)",
       "close": "Close"
     }
   }
